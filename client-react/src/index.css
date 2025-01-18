@@ -1,0 +1,44 @@
+
+:root {
+    /* General Colors */
+    --color-white: white;
+    --color-gray-light: #f9f9f9;
+    --color-gray: #ccc;
+    --color-gray-dark: #888;
+    --color-text-primary: #333;
+    --color-text-secondary: #777;
+    --color-shadow: rgba(0, 0, 0, 0.1);
+
+    /* Spacing and Dimensions */
+    --spacing-small: 10px;
+    --spacing-medium: 20px;
+    --spacing-large: 40px;
+
+    /* Border and Radius */
+    --border-radius: 15px;
+    --border-light: 1px solid var(--color-gray);
+
+    /* Font Sizes */
+    --font-size-small: 14px;
+    --font-size-medium: 18px;
+    --font-size-large: 24px;
+    --font-size-xlarge: 64px;
+
+    /* Heights */
+    --height-header: 100px;
+    --height-footer: 70px;
+    --box-min-height: 300px;
+    --box-max-width: 400px;
+
+    /* Backgrounds */
+    --background-main: var(--color-gray-dark);
+    --background-active-box: var(--color-white);
+    --background-header-footer: var(--color-white);
+
+    /* Shadows */
+    --shadow-box: 6px var(--color-shadow);
+}
+
+html,body {
+  margin: 0;
+}
