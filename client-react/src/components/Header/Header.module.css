@@ -1,0 +1,24 @@
+.header {
+    background-color: var(--background-header-footer);
+}
+
+.toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.logoContainer {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 50px;
+    margin-right: var(--spacing-medium);
+}
+
+.title {
+    font-size: var(--font-size-large);
+    color: var(--color-text-primary);
+}

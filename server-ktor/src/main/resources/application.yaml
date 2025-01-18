@@ -1,0 +1,13 @@
+ktor:
+  application:
+    modules:
+      - com.ing.ApplicationKt.module
+  deployment:
+    port: 8080
+
+  jwt:
+    # 30 minutes in milliseconds
+    tokenValidityInMs: 1800000
+    secret: "super-secret-key"
+    issuer: "ktor-server"
+    audience: "ktor-client"

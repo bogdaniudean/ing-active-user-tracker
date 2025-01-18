@@ -1,0 +1,28 @@
+
+.box {
+    min-height: var(--box-min-height);
+    width: 100%;
+    max-width: var(--box-max-width);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: var(--spacing-medium);
+    border-radius: var(--border-radius);
+    text-align: center;
+    flex-shrink: 0;
+
+    background-color: var(--background-active-box);
+    box-shadow: var(--shadow-box);
+}
+
+.button {
+
+}
+
+.titleContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
