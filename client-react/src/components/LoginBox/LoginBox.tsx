@@ -1,24 +1,27 @@
-
-import styles from "./LoginBox.module.css";
-import { Button, TextField, Typography, Tooltip, IconButton, CircularProgress } from "@mui/material";
+import {Typography, TextField, Button, CircularProgress, Box, Tooltip, IconButton} from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import styles from "./LoginBox.module.css";
 import {useState} from "react";
 
 export interface LoginBoxProps {
-    token: string | null;
+    isLoggedIn: boolean;
     loading: boolean;
     error: string | null;
     onLogin: (username: string, password: string) => void;
     onLogout: () => void;
 }
 
-const LoginBox: React.FC<LoginBoxProps> = ({ token, loading, error, onLogin, onLogout }) => {
+const LoginBox: React.FC<LoginBoxProps> = ({isLoggedIn, loading, error, onLogin, onLogout}) => {
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
+    const handleSubmit = () => {
+        onLogin(username, password);
+    };
+
     return (
-        <div className={styles.box}>
-            {!token ? (
+        <Box className={styles.box}>
+            {!isLoggedIn ? (
                 <>
                     <div className={styles.titleContainer}>
                         <Typography variant="h5">Login</Typography>
@@ -49,13 +52,12 @@ const LoginBox: React.FC<LoginBoxProps> = ({ token, loading, error, onLogin, onL
                         sx={{
                             marginTop: "var(--spacing-medium)"
                         }}
-                        className={styles.button}
                         variant="contained"
                         color="primary"
-                        onClick={() => onLogin(username, password)}
+                        onClick={handleSubmit}
                         disabled={loading}
                     >
-                        {loading ? <CircularProgress size={24} color="inherit" /> : "Login"}
+                        {loading ? <CircularProgress size={24} color="inherit"/> : "Login"}
                     </Button>
                 </>
             ) : (
@@ -65,13 +67,12 @@ const LoginBox: React.FC<LoginBoxProps> = ({ token, loading, error, onLogin, onL
                         sx={{
                             marginTop: "var(--spacing-medium)"
                         }}
-                        className={styles.button}
                         variant="contained"
                         color="secondary"
                         onClick={onLogout}
                         disabled={loading}
                     >
-                        {loading ? <CircularProgress size={24} color="inherit" /> : "Logout"}
+                        {loading ? <CircularProgress size={24} color="inherit"/> : "Logout"}
                     </Button>
                 </>
             )}
@@ -80,7 +81,7 @@ const LoginBox: React.FC<LoginBoxProps> = ({ token, loading, error, onLogin, onL
                     {error}
                 </Typography>
             )}
-        </div>
+        </Box>
     );
 };
 

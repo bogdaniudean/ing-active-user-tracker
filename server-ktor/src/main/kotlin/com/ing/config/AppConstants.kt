@@ -4,19 +4,13 @@ import io.ktor.server.application.*
 import io.ktor.server.config.*
 
 object AppConstants {
-    val JWT_TOKEN_VALIDITY_IN_MS: Long by lazy {
-        config.property("ktor.jwt.tokenValidityInMs").getString().toLong()
-    }
-    val JWT_SECRET: String by lazy {
-        config.property("ktor.jwt.secret").getString()
-    }
-    val JWT_ISSUER: String by lazy {
-        config.property("ktor.jwt.issuer").getString()
-    }
-    val JWT_AUDIENCE: String by lazy {
-        config.property("ktor.jwt.audience").getString()
+    val SESSION_MAX_AGE_MS: Long by lazy {
+        config.property("ktor.session.maxAgeMs").getString().toLong()
     }
 
+    val CLEANUP_INTERVAL_MS: Long by lazy {
+        config.property("ktor.cleanup.intervalMs").getString().toLong()
+    }
     private lateinit var config: ApplicationConfig
 
     fun init(application: Application) {
