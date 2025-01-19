@@ -1,18 +1,18 @@
-
 import axios from "axios";
+import {CONFIGS} from "../configs.ts";
 
-export const login = async (username: string, password: string) => {
-    const response = await axios.post("http://localhost:8080/login", {
+export const axiosInstance = axios.create({
+    baseURL: `${CONFIGS.API_ENDPOINT}`,
+    withCredentials: true,
+});
+
+export const login = async (username: string, password: string): Promise<void> => {
+    await axiosInstance.post("/login", {
         username,
         password,
     });
-    return response.data.token;
 };
 
-export const logout = async (token: string) => {
-    await axios.post(
-        "http://localhost:8080/logout",
-        {},
-        { headers: { Authorization: `Bearer ${token}` } }
-    );
+export const logout = async (): Promise<void> => {
+    await axiosInstance.post("/logout");
 };

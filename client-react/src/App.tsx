@@ -9,7 +9,9 @@ import styles from "./App.module.css";
 import { Container, Box } from "@mui/material";
 
 const App: React.FC = () => {
-    const [token, setToken] = useState<string | null>(localStorage.getItem("token"));
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(
+        !!document.cookie.match(/USER_SESSION/)
+    );
     const [activeUsers, setActiveUsers] = useState<number>(0);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
@@ -18,9 +20,8 @@ const App: React.FC = () => {
         setError(null);
         setLoading(true);
         try {
-            const newToken = await login(username, password);
-            setToken(newToken);
-            localStorage.setItem("token", newToken);
+            await login(username, password);
+            setIsLoggedIn(true);
         } catch (err: any) {
             setError(err.message || "Login failed. Please try again.");
         } finally {
@@ -32,16 +33,11 @@ const App: React.FC = () => {
         setError(null);
         setLoading(true);
         try {
-            if (token) {
-                await logout(token); // Attempt to log out on the server
-            }
+            await logout();
         } catch (error) {
             setError("Logout failed on the server, clearing client session.");
-            // Optionally, you can inspect the error response for additional handling
         } finally {
-            // Clear client-side session regardless of the server response
-            setToken(null);
-            localStorage.removeItem("token");
+            setIsLoggedIn(false);
             setLoading(false);
         }
     };
@@ -61,7 +57,7 @@ const App: React.FC = () => {
                 <Box className={styles.mainContainer}>
                     <ActiveUsersBox count={activeUsers} />
                     <LoginBox
-                        token={token}
+                        isLoggedIn={isLoggedIn}
                         loading={loading}
                         error={error}
                         onLogin={handleLogin}

@@ -5,9 +5,8 @@ ktor:
   deployment:
     port: 8080
 
-  jwt:
-    # 30 minutes in milliseconds
-    tokenValidityInMs: 1800000
-    secret: "super-secret-key"
-    issuer: "ktor-server"
-    audience: "ktor-client"
+  session:
+    maxAgeMs: 300000
+
+  cleanup:
+    intervalMs: 300000

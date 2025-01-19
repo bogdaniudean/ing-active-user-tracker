@@ -1,0 +1,27 @@
+#version: "3.9"
+services:
+  server-ktor:
+    build:
+      context: ./server-ktor
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+
+  client-react:
+    build:
+      context: ./client-react
+      dockerfile: Dockerfile
+      args:
+        VITE_API_ENDPOINT: "http://localhost:8080"
+    ports:
+      - "3000:80"
+    depends_on:
+      - server-ktor
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
