@@ -1,42 +1,65 @@
-# server-ktor
 
-This project was created using the [Ktor Project Generator](https://start.ktor.io).
 
-Here are some useful links to get you started:
+# Server: Active Users Tracker API
 
-- [Ktor Documentation](https://ktor.io/docs/home.html)
-- [Ktor GitHub page](https://github.com/ktorio/ktor)
-- The [Ktor Slack chat](https://app.slack.com/client/T09229ZC6/C0A974TJ9). You'll need
-  to [request an invite](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) to join.
+---
+
+## Tech Stack
+- **Kotlin**, **Ktor**
+- **Session-based authentication**
+- **Server-Sent Events (SSE)** for real-time updates
+- **Docker** containerized deployment
+
+---
 
 ## Features
+- Manages active user sessions
+- Provides SSE-based active user count
+- Handles session expiration and cleanup
 
-Here's a list of features included in this project:
+---
 
-| Name                                                       | Description                                                    |
-| ------------------------------------------------------------|---------------------------------------------------------------- |
-| [Routing](https://start.ktor.io/p/routing)                 | Provides a structured routing DSL                              |
-| [Authentication](https://start.ktor.io/p/auth)             | Provides extension point for handling the Authorization header |
-| [Authentication Basic](https://start.ktor.io/p/auth-basic) | Handles 'Basic' username / password authentication scheme      |
+## Endpoints
+- **POST** `/login`: Authenticate users.
+- **POST** `/logout`: Log users out.
+- **SSE** `/active-users-stream`: Stream active user updates.
 
-## Building & Running
+---
 
-To build or run the project, use one of the following tasks:
+## Configuration
+Adjust environment-specific settings in [application.yaml](./src/main/resources/application.yaml)
 
-| Task                          | Description                                                          |
-| -------------------------------|---------------------------------------------------------------------- |
-| `./gradlew test`              | Run the tests                                                        |
-| `./gradlew build`             | Build everything                                                     |
-| `buildFatJar`                 | Build an executable JAR of the server with all dependencies included |
-| `buildImage`                  | Build the docker image to use with the fat JAR                       |
-| `publishImageToLocalRegistry` | Publish the docker image locally                                     |
-| `run`                         | Run the server                                                       |
-| `runDocker`                   | Run using the local docker image                                     |
 
-If the server starts successfully, you'll see the following output:
+| **Parameter**            | **Purpose**                                           | **Example**  | **Explanation**                                                                                                                        |
+|---------------------------|-------------------------------------------------------|--------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| `ktor.session.maxAgeMs`   | Configure the validity of a session                  | `1800000`    | Specifies the maximum lifetime of a session in milliseconds. Example: `1800000` means sessions expire after 30 minutes.                |
+| `ktor.cleanup.intervalMs` | Configure the interval when the session cleaner runs | `60000`      | Defines how often (in milliseconds) the session cleaner will execute to remove expired sessions. Example: `60000` runs every 1 minute. |
 
+
+---
+
+## Local Development
+
+### Install Dependencies
+- Install **Gradle** (7.6+).
+
+### Run Locally
+```bash
+  ./gradlew run
 ```
-2024-12-04 14:32:45.584 [main] INFO  Application - Application started in 0.303 seconds.
-2024-12-04 14:32:45.682 [main] INFO  Application - Responding at http://0.0.0.0:8080
+
+API available at: [http://localhost:8080](http://localhost:8080).
+
+---
+
+## Build and Run with Docker
+
+### Build the Docker Image
+```bash
+  docker build -t server-ktor .
 ```
 
+### Run the Container
+```bash
+  docker run -p 8080:8080 server-ktor
+```
