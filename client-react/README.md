@@ -1,50 +1,61 @@
-# React + TypeScript + Vite
+# Client: Active Users Tracker UI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+---
 
-Currently, two official plugins are available:
+## Tech Stack
+- **React** with **TypeScript**
+- **MUI** for UI components
+- **Vite** as the build tool
+- **Axios** for API communication
+- **Server-Sent Events (SSE)** for real-time updates
+- **Docker** containerized deployment
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## Features
+- Displays live active user count
+- Provides a login/logout interface
+- Environment-based API configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+---
 
-- Configure the top-level `parserOptions` property like this:
+## Configuration
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+Adjust environment-specific settings in 
+- [.env.loc](./.env.loc) for local builds
+- [.env.prod](./.env.prod) for production builds
+
+
+| **Variable**         | **Purpose**                            | **Example Value**           | **Explanation**                                                                                       |
+|-----------------------|----------------------------------------|-----------------------------|-------------------------------------------------------------------------------------------------------|
+| `VITE_API_ENDPOINT`   | Configure the backend API endpoint    | `http://localhost:8080`     | Specifies the base URL of the backend API for the client to communicate with.                        |
+
+---
+
+## Local Development
+
+### Install Dependencies
+- Install **Node.js** (18+).
+
+### Run Locally
+```bash
+  npm install && npm run dev
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Client available at: http://localhost:5173
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Build and Run with Docker
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+### Build the Docker Image
+
+```bash
+    docker build -t client-react .
 ```
+
+### Run the Container
+
+```bash
+  docker run -p 3000:80 client-react
+```
+
+Client available at: http://localhost:3000
